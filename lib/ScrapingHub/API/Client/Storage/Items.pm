@@ -54,13 +54,13 @@ Client interface for the Jobs API that falls under the ScapingHub's Scrapy API s
 
 Get the items that were scraped for a particular job.  
 
-C<< my $items = $sh_jobs->get_items({ job => '123456/56/78' });
+C<< my $items = $sh_jobs->get_items({ job => '123456/56/78' }); >>
 
 =head2 get_job_item_stats
 
 Get the stats for the items scraped for a particular job.
 
-C<< my $stats = $sh_jobs->get_job_item_stats({ job => '123456/56/78' });
+C<< my $stats = $sh_jobs->get_job_item_stats({ job => '123456/56/78' }); >>
 
 =cut
 
