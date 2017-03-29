@@ -8,7 +8,7 @@ use JSON qw/decode_json/;
 use ScrapingHub::API::Client::Storage::Items;
 
 my $api_key = $ENV{SH_API_KEY};
-my $api_url = $ENV{SH_API_URL};
+my $api_url = $ENV{SH_STORAGE_URL};
 my $test_live = $ENV{TEST_LIVE};
 
 my $project = '__PROJECT__';

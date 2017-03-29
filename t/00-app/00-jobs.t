@@ -8,7 +8,7 @@ use ScrapingHub::API::Client::App::Jobs;
 use JSON qw/decode_json/;
 
 my $api_key = $ENV{SH_API_KEY};
-my $api_url = $ENV{SH_API_URL};
+my $api_url = $ENV{SH_APP_URL};
 my $test_live = $ENV{TEST_LIVE};
 
 if (!$api_key || !$api_url) {
@@ -58,8 +58,6 @@ subtest 'schedule_run' => sub {
 
     my $job = $sh->schedule_run({ project => $projects[0]->{id}, spider => $projects[0]->{spider} });
     $job = decode_json($job);
-
-    explain $sh->last_query_response;
 
     ok( $sh->last_query_response->code == 200, "200 OK status returned in the response" );
     ok( $job->{status} eq 'ok', "Successful status returned in the response" );
