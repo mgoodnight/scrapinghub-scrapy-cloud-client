@@ -99,6 +99,8 @@ Items
 
 =head1 ATTRIBUTES
 
+=over
+
 =item api_key
 =item api_url
 =item ua
@@ -106,12 +108,14 @@ Items
 =item last_query_response
 =item last_query_error
 
+=back
+
 =head1 METHODS
 
 =head2 query
 
 Queries the URL provided with the specified method and parameters.
 
-C<<my $response = $client->query('GET', $url, $params);>>
+C<< my $response = $client->query('GET', $url, $params); >>
 
 =cut
