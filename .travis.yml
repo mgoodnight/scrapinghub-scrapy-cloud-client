@@ -14,6 +14,6 @@ perl:
 install:
   - cpanm --quiet --notest --skip-satisfied Dist::Zilla
 script:
-  - ls
+  - dzil authordeps --missing | cpanm --quiet --notest
   - dzil listdeps | cpanm --quiet --notest
   - prove -Ilib -r t/
