@@ -13,6 +13,6 @@ before_install:
   - source ~/travis-perl-helpers/init --auto
 install:
   - cpanm --quiet --notest --skip-satisfied Dist::Zilla
-  - dzil listdeps | cpanm --quiet --notest
 script:
+  - dzil listdeps | cpanm --quiet --notest
   - prove -Ilib -r t/
