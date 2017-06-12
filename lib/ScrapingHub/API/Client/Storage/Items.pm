@@ -10,7 +10,7 @@ sub get_items {
 
     flag_missing_params($args, qw/job/);
 
-    my $job= $args->{job} and delete $args->{job};
+    my $job = $args->{job} and delete $args->{job};
     my $field = $args->{field} and delete $args->{field};
 
     my $url = $self->api_url . '/items/' . $job;
@@ -24,8 +24,6 @@ sub get_job_item_stats {
 
     flag_missing_params($args, qw/job/);
 
-    my $project = $args->{project} and delete $args->{project};
-    my $spider_id = $args->{spider_id} and delete $args->{spider_id};
     my $job = $args->{job} and delete $args->{job};
 
     my $url = $self->api_url . '/items/' . $job . '/stats';

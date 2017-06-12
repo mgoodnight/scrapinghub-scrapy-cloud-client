@@ -12,8 +12,8 @@ my $api_url = $ENV{SH_STORAGE_URL};
 my $test_live = $ENV{TEST_LIVE};
 
 my $project = '__PROJECT__';
-my $spider = '__SPIDER_NO__';
-my $job = '__JOB_NO__';
+my $spider_num = '__SPIDER_NO__';
+my $job_num = '__JOB_NO__';
 
 if (!$api_key || !$api_url) {
     plan skip_all => "Missing API key and/or API url, so we are skipping tests...";
@@ -38,11 +38,13 @@ subtest "get_items" => sub {
         plan skip_all => "Missing test live environment variable... skipping live API queries of get_items.";
     }
 
-    my $job = $sh->get_items({ project => $project, spider_id => $spider, job => $job });
-    $job = decode_json($job);
+    my $job = "$project/$spider_num/$job_num";
+    my $items = $sh->get_items({ job => $job });
+    $items = decode_json($items);
+    explain $items;
 
     ok( $sh->last_query_response->code == 200, "200 OK status returned in the response" );
-    ok( ref($job) eq 'ARRAY', "Type ARRAY was returned within the request" );
+    ok( ref($items) eq 'ARRAY', "Type ARRAY was returned within the request" );
 };
 
 subtest 'get_job_item_stats' => sub {
@@ -51,11 +53,13 @@ subtest 'get_job_item_stats' => sub {
             plan skip_all => "Missing test live environment variable... skipping live API queries of get_job_item_stats.";
     }
 
-    my $stats = $sh->get_job_item_stats({ project => $project, spider_id => $spider, job => $job });
+    my $job = "$project/$spider_num/$job_num";
+    my $stats = $sh->get_job_item_stats({ job => $job });
     $stats = decode_json($stats);
+    explain $stats;
 
     ok( $sh->last_query_response->code == 200, "200 OK status returned in the response" );
-    ok( ref($stats) eq 'ARRAY', "Type ARRAY was returned within the request" );
+    ok( ref($stats) eq 'HASH', "Type HASH was returned within the request" );
 };
 
 done_testing();
