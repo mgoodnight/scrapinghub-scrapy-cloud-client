@@ -18,7 +18,6 @@ nytprof.out
 *.o
 *.bs
 /_eumm/
-<<<<<<< HEAD
 /local
-=======
->>>>>>> 309875e362ea1064ad2dadf813e3e3e222b51976
+*.tar.gz
+ScrapingHub-API-Client-*
