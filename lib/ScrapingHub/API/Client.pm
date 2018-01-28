@@ -6,8 +6,7 @@ use strict;
 use warnings;
 
 use Moo;
-use Furl;
-use IO::Socket::SSL;
+use LWP::UserAgent;
 use Carp qw/confess/;
 use URI::Escape;
 
@@ -19,10 +18,10 @@ has ['api_key', 'api_url'] => (
 has ua => (
     is      => 'ro',
     builder => sub {
-        return Furl->new(
+        return LWP::UserAgent->new(
             timeout  => 300,
             ssl_opts => {
-                SSL_verify_mode => IO::Socket::SSL::SSL_VERIFY_PEER(),
+                verify_hostname => 1
             }
         );
     }

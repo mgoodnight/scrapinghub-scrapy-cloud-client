@@ -8,28 +8,17 @@ use ScrapingHub::API::Client::App::Jobs;
 use JSON qw/decode_json/;
 
 my $api_key = $ENV{SH_API_KEY};
-my $api_url = $ENV{SH_APP_URL};
 my $test_live = $ENV{TEST_LIVE};
+my $api_url = 'https://app.scrapinghub.com/api';
 
 if (!$api_key || !$api_url) {
-    plan skip_all => "Missing API key and/or API url, so we are skipping tests...";
+    plan skip_all => "Missing API key, so we are skipping tests...";
 }
 
-# Its best to setup three projects if intending to test live
-# because the actions on projects/spiders/jobs in a previous test 
-# could conflict with tests that has yet to be run.  
 my @projects = (
     {
-        id     => '__PROJECT_1__',
-        spider => '__SPIDER_1__'
-    },
-    {
-        id     => '__PROJECT_2__',
-        spider => '__SPIDER_2__'
-    },
-    {
-        id     => '__PROJECT_3__',
-        spider => '__SPIDER_3__'
+        id     => '__PROJECT__',
+        spider => '__SPIDER__'
     }
 );
 
@@ -84,7 +73,7 @@ subtest 'update_job' => sub {
         plan skip_all => "Missing test live environment variable... skipping live API queries of update_job.";
     }
 
-    my $job = $sh->schedule_run({ project => $projects[1]->{id}, spider => $projects[1]->{spider} });
+    my $job = $sh->schedule_run({ project => $projects[0]->{id}, spider => $projects[0]->{spider} });
     $job = decode_json($job);
 
     my $job_id = $job->{jobid};
@@ -129,12 +118,12 @@ subtest 'stop_job' => sub {
         plan skip_all => "Missing test live environment variable... skipping live API queries of stop_job.";
     }
 
-    my $job = $sh->schedule_run({ project => $projects[2]->{id}, spider => $projects[2]->{spider} });
+    my $job = $sh->schedule_run({ project => $projects[0]->{id}, spider => $projects[0]->{spider} });
     $job = decode_json($job);
 
     my $job_id = $job->{jobid};
 
-    my $stopped = $sh->stop_job({ job_id => $job_id, project => $projects[2]->{id} });
+    my $stopped = $sh->stop_job({ job_id => $job_id, project => $projects[0]->{id} });
     $stopped = decode_json($stopped);
 
     ok( $sh->last_query_response->code == 200, "200 OK status returned in the response" );
