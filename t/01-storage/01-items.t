@@ -8,15 +8,15 @@ use JSON qw/decode_json/;
 use ScrapingHub::API::Client::Storage::Items;
 
 my $api_key = $ENV{SH_API_KEY};
-my $api_url = $ENV{SH_STORAGE_URL};
 my $test_live = $ENV{TEST_LIVE};
+my $api_url = 'https://storage.scrapinghub.com';
 
 my $project = '__PROJECT__';
-my $spider_num = '__SPIDER_NO__';
+my $spider_num = '__SPIDER__';
 my $job_num = '__JOB_NO__';
 
-if (!$api_key || !$api_url) {
-    plan skip_all => "Missing API key and/or API url, so we are skipping tests...";
+if (!$api_key) {
+    plan skip_all => "Missing API key, so we are skipping tests...";
 }
 
 dies_ok { ScrapingHub::API::Client::Storage::Items->new() } "Dies on missing required attributes.";
